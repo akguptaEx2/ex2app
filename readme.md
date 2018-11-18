@@ -1,4 +1,4 @@
-# EX2 Android|IOS App
+# EX2 Android|iOS App
 
 Device Management
 
@@ -30,21 +30,16 @@ please refer to knexfile.js and 'db' directory
 ### Knex Docs
 https://knexjs.org
 
-#Codebase Directory Structure
+## Codebase Directory Structure
 All client relates files will go in public directory.
 public directory can be used as react or angular frontend.
 All server related files will go in src directory.
 All the test files will go in tests directory
-There will be a separate test file (fileNameInSrc.test.js) for writing unit test cases for different files.
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
+There will be a separate test file (fileNameInSrc.test.js) for writing unit test cases for different files
 
 ## Authors
 
-* **Arup Kumar Gupta** - *Initial work* - [EX2APP](https://github.com/ex2app)
+* **Arup Kumar Gupta** - *Initial work* - [EX2APP](https://github.com/akguptaex2/ex2app)
 
 See also the list of [contributors](https://github.com/akguptaex2/ex2app/contributors) who participated in this project.
 
