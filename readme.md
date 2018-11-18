@@ -46,7 +46,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 * **Arup Kumar Gupta** - *Initial work* - [EX2APP](https://github.com/ex2app)
 
-See also the list of [contributors](https://github.com/arguptaex2/ex2app/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/akguptaex2/ex2app/contributors) who participated in this project.
 
 ## License
 ISC
