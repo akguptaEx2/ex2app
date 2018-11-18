@@ -4,8 +4,7 @@ Device Management
 
 ## Getting Started
 
-clone the project
-npm install 
+clone the project and do npm install 
 
 ### Prerequisites
 
