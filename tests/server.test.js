@@ -15,22 +15,3 @@ describe('it should create a server',function(){
         request(server).get('/invalidPath').expect(404,done);
     });
 });
-describe('get request for users',function(){
-    var server;
-    this.beforeEach(function(){
-        server = require('../src/server');
-    });
-    this.afterEach(function(){
-        server.close();
-    });
-    it('should fetch all users from database',function(done){
-        request(server).get('/users').then((result)=>{
-            let body = result.body;
-            expect(body).is.not.null;
-            expect(body.success).to.be.true;
-            expect(body).has.ownProperty('users');
-            expect(body.users[0].length).to.eq(7);
-            done();
-        }).catch((err)=>{done(err)});
-    });
-});
