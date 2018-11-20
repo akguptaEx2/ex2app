@@ -7,6 +7,11 @@ router.get('/',(req,res)=>{
         res.status(500).json({success:false,message: err});
     });
 });
+//Creating new user
+router.post('/new',(req,res)=>{
+    //TODO
+    res.json({success:true,message:'Method not implemented'});
+});
 router.get('/:username',(req,res)=>{
     let username = req.params.username;
     knex('users').select(knex.raw('username, id, first_name, last_name'))
@@ -19,5 +24,15 @@ router.get('/:username',(req,res)=>{
    }).catch((err)=>{
        res.status(500).json({success:false,message:err});
    });
+});
+//delete user by username
+router.delete('/:username',(req,res)=>{
+    //TODO
+    res.json({success:true,message:'Method not implemented'});
+});
+//update user by username
+router.patch('/:username',(req,res)=>{
+    //TODO
+    res.json({success:true,message:'Method not implemented'});
 });
 module.exports = router;
