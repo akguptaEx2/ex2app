@@ -1,11 +1,11 @@
 const router = require('express')();
-const knex = require('../db/knex');
 router.get('/',(req,res)=>{
-    knex.raw('select * from users').then((users)=>{
+   /*  knex.raw('select * from users').then((users)=>{
         res.status(200).json({success: true,users});
     }).catch((err)=>{
         res.status(500).json({success:false,message: err});
-    });
+    }); */
+    res.json({success:true,message:'Method not implemented'});
 });
 //Creating new user
 router.post('/new',(req,res)=>{
@@ -13,7 +13,7 @@ router.post('/new',(req,res)=>{
     res.json({success:true,message:'Method not implemented'});
 });
 router.get('/:username',(req,res)=>{
-    let username = req.params.username;
+   /*  let username = req.params.username;
     knex('users').select(knex.raw('username, id, first_name, last_name'))
     .where('username','like',`%${username}%`)
     .then((user)=>{
@@ -23,7 +23,9 @@ router.get('/:username',(req,res)=>{
     res.json({success:true,'users':user});
    }).catch((err)=>{
        res.status(500).json({success:false,message:err});
-   });
+   }); */
+   res.json({success:true,message:'Method not implemented'});
+
 });
 //delete user by username
 router.delete('/:username',(req,res)=>{
