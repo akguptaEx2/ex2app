@@ -4,6 +4,7 @@ const path = require('path');
 describe('test user routes',function(){
     var server;
     this.beforeEach(()=>{
+        console.log(process.env.NODE_ENV);
         let serverPath = path.join(__dirname,'..','..','src','server');
         server = require(serverPath);
     });

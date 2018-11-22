@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon ./src/server.js",
-    "test": "find ./tests -name '*.test.js' | xargs mocha -R spec"
+    "test": "SET NODE_ENV=test && find ./tests -name '*.test.js' | xargs mocha -R spec"
   },
   "keywords": [
     "ex2",
