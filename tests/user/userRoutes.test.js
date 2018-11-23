@@ -17,9 +17,9 @@ describe('test user routes',function(){
             expect(body.success).to.be.true;
             expect(body).has.ownProperty('users');
             expect(body.users[0].length).to.eq(7);
-            done();
+            done('TODO');
         }).catch((err)=>{done(err)}); */
-        done();
+        done('TODO');
     });
     it('should fetch users with the given username',(done)=>{
 /*         request(server).get('/users/arup').then((user)=>{
@@ -27,14 +27,14 @@ describe('test user routes',function(){
             expect(body).is.not.null;
             expect(body.success).to.be.true;
             expect(body).has.ownProperty('users');
-            done();
+            done('TODO');
         }).catch((err)=>{
             done(err);
         }) */
-        done();
+        done('TODO');
     });
     it('should give 404 when no user is found for a username',(done)=>{
         // request(server).get('/users/noName').expect(404,done);
-        done();
+        done('TODO');
     });
 });

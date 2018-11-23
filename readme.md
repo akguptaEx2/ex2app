@@ -10,6 +10,13 @@ clone the project and do npm install
 
 nodejs 
 
+## Environment configuration
+For development purposes only the config directory is include for the time being.<br/>
+It is added to .gitignore though and will remove from the repository as well after development is started.<br/>
+Developers must not commit config files.<br/>
+There are 3 databases that are needed to be maintained -> dev (ex2app_dev) test(ex2app_test) and  production (ex2app).<br/>
+With the config file the credentials and databases  are set automatically depending upon the environment variable currently in use. Please refer to config/config.json,db/index.js and package.json for better reference.
+
 ## Running the tests
 
 Tests are preconfigured. All the unit test files are needed to be added to test directory.
@@ -24,17 +31,11 @@ index.js in used as barrel to supply imports to server
 
 ## Database Info
 database is on mysql
-knex package is used to make migrations to database
-please refer to knexfile.js and 'db' directory for authentication and database.
+sequelize is used as orm for mysql.
 For reference purposes ex2app database is created in mysql
-### Command 
- knex migrate:make <br/>
- knex migrate:latest <br/>
- knex seed:run <br/>
- Note: knex is needed to be install globally as well to use cli tool for above specified commands.
 
-### Knex Docs
-https://knexjs.org
+### Sequelize Docs
+http://docs.sequelizejs.com/
 
 ## Codebase Directory Structure
 All client relates files will go in public directory.<br/>

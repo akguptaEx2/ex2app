@@ -2,8 +2,9 @@ const request = require('supertest');
 const {expect} = require('chai');
 describe('it should create a server',function(){
     var server;
-    this.beforeEach(function(){
+    this.beforeEach(function(done){
         server = require('../src/server');
+        done();
     });
     this.afterEach(function(){
         server.close();
