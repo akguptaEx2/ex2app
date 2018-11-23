@@ -1,6 +1,5 @@
 const router = require('express')();
 router.get('/',(req,res)=>{
-
     res.json({success:true,message:'Method not implemented'});
 });
 //Creating new user

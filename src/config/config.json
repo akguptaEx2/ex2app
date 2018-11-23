@@ -1,0 +1,23 @@
+{
+    "development":{
+        "username":"arup",
+        "password":"arup",
+        "database":"ex2app_dev",
+        "host":"127.0.0.1",
+        "dialect":"mysql"
+    },
+    "test":{
+        "username":"arup",
+        "password":"arup",
+        "database":"ex2app_test",
+        "host":"127.0.0.1",
+        "dialect":"mysql"
+    },
+    "production":{
+        "username":"arup",
+        "password":"arup",
+        "database":"ex2app",
+        "host":"127.0.0.1",
+        "dialect":"mysql"
+    }
+}

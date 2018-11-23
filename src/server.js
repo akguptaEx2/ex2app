@@ -1,4 +1,5 @@
 const {app,port,connection,Sequelize}  = require('./index');
+
 app.get('/',(req,res)=>{
     res.status(200).send({success: true});
 });
