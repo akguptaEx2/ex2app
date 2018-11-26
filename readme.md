@@ -42,7 +42,14 @@ All client relates files will go in public directory.<br/>
 public directory can be used as react or angular frontend.<br/>
 All server related files will go in src directory.<br/>
 All the test files will go in tests directory.<br/>
-There will be a separate test file (fileNameInSrc.test.js) for writing unit test cases for different files.
+There will be a separate test file (fileNameInSrc.test.js) for writing unit test cases for different files.<br>
+After cloning the repo
+run the following command <br>
+```
+
+git update-index --assume-unchanged src/config/config.json
+```
+
 
 ## Authors
 
