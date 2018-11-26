@@ -4,7 +4,7 @@
   "description": "Device Management, Interviews, Attendance",
   "main": "server.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon ./src/server.js",
+    "start": "nodemon ./src/server.js",
     "test": "export NODE_ENV=test||SET NODE_ENV=test&&find ./tests -name '*.test.js' | xargs mocha -R spec"
   },
   "keywords": [
@@ -18,9 +18,11 @@
   "author": "Arup",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
     "sequelize": "^4.41.2"
   },
@@ -30,5 +32,16 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.6",
     "supertest": "^3.3.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akguptaEx2/ex2app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akguptaEx2/ex2app/issues"
+  },
+  "homepage": "https://github.com/akguptaEx2/ex2app#readme"
 }
