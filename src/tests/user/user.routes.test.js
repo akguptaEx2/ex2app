@@ -1,14 +1,15 @@
 const request = require('supertest');
 const {expect} = require('chai');
 const path = require('path');
-const srcDir = path.join('..','..','src');
+const srcDir = path.join('..','..');
 const {connection} = require(path.join(srcDir,'db'));
+const {User} = require(path.join(srcDir,'user'));
+
 describe('test user routes',function(){
     var server;
     this.beforeEach(()=>{
-        let serverPath = path.join(__dirname,'..','..','src','server');
+        let serverPath = path.join(srcDir,'server');
         server = require(serverPath);
-        const {User} = require(path.join(srcDir,'user'));
         connection.sync().then(()=>{
             User.bulkCreate([{
                 username: 'testone',
@@ -42,8 +43,10 @@ describe('test user routes',function(){
         }).catch((e)=>{
         });
     });
-    this.afterEach(function(){
-        
+    this.afterEach(()=>{
+        connection.sync().then(()=>{
+            User.destroy({truncate:true});
+        }); 
     });
     it('should fetch all users from database',(done)=>{
         request(server).get('/users').then((result)=>{
@@ -81,5 +84,30 @@ describe('test user routes',function(){
             expect(body.users.length).to.eq(0);
             done();
         }).catch(err=>done(err));
+    });
+    it('should create a new user',(done)=>{
+        let userObject = {
+            username: 'testuser',
+            first_name: 'test',
+            last_name: 'user',
+            email: 'test@user.com',
+            password: 'testuserpwd'
+        }
+        request(server).post('/users/new').send(userObject).then((result)=>{
+           expect(result.status).to.eq(200);
+           User.findOne({
+               where:{username:userObject.username},
+               attributes:['username','first_name','last_name','password']
+           }).then((user)=>{
+                if(!user.dataValues)
+                    return done('Database not updated');
+               let thisUser = user.dataValues;
+               expect(thisUser.username).to.eq('testuser');
+               expect(thisUser.password).to.not.eq('testuserpwd');
+               return done();
+           }).catch(e=>done(e));
+
+        }).catch(err=>done(err));
+        
     });
 });

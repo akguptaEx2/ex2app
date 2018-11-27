@@ -10,6 +10,7 @@
     *? being optional and atleast any one of them is needed to be returned in response
     *res.json(response)
  */
+const _ = require('lodash');
 const User = require('./user.model');
 const {connection,Sequelize} = require('../db');
 const Op = Sequelize.Op;
@@ -45,7 +46,18 @@ class UserController{
        
     }
     static async createNewUser(req,res){
-        res.json({success:true,message:'Method not implemented'});
+        try{
+            await connection.sync();
+            let userObj = _.pick(req.body,['username','first_name','last_name','email','password']);
+            try{
+               let user = await User.create(userObj);
+               return res.json({success:true,user:user.dataValues});
+            }catch(insertError){
+                return res.json({success:false,error:insertError});
+            }
+        }catch(err){
+            return res.json({success:false,error:err});
+        }
     }
     static async deleteUser(req,res){
         res.json({success:true,message:'Method not implemented'});

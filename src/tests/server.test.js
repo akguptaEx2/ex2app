@@ -3,7 +3,7 @@ const {expect} = require('chai');
 describe('it should create a server',function(){
     var server;
     this.beforeEach(function(done){
-        server = require('../src/server');
+        server = require('../server');
         done();
     });
     this.afterEach(function(){
