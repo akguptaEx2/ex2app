@@ -11,4 +11,6 @@ router.delete('/:username',UserController.deleteUser);
 router.patch('/:username',UserController.updateUser);
 //login user
 router.post('/login',UserController.login);
+//logout user
+router.post('/me/logout',UserController.authMiddleware,UserController.logout);
 module.exports = router;

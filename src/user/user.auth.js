@@ -28,12 +28,11 @@ class EncryptPassword{
         return new Promise((resolve,reject)=>{
             jwt.sign({user},process.env.JWTSECRETKEY,(err,token)=>{
                 if(err){
-                    return reject({success:false,error:{code:403,message:'Forbidden'}});
+                    return reject({success:false,message:'Forbidden'});
                 }
                 resolve(token);
             });
         }); 
     }
-
 }
 module.exports = EncryptPassword;

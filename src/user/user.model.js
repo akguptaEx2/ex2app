@@ -1,15 +1,10 @@
 const { connection, Sequelize } = require('../db');
 const EncryptPassword = require('./user.auth');
 const _ = require('lodash');
+const jwt = require('jsonwebtoken');
 const User = connection.define('user', {
-    username: {
-        type: Sequelize.STRING(40),
-        unique: true,
-        allowNull: false,
-    },
     first_name: {
         type: Sequelize.STRING(20),
-        allowNull: false,
     },
     last_name: {
         type: Sequelize.STRING(20)
@@ -27,7 +22,8 @@ const User = connection.define('user', {
         allowNull: false
     },
     token: {
-        type: Sequelize.STRING(1024)
+        type: Sequelize.STRING(255),
+        defaultValue:''
     }
 });
 User.hook('beforeCreate', async function (user, options) {
@@ -38,10 +34,25 @@ User.hook('beforeCreate', async function (user, options) {
         return connection.Promise.reject(e);
     }
 });
-User.prototype
-    .toJSON = function () {
-        let user = this.dataValues;
-        let me = _.pick(user, ['username', 'email', 'first_name', 'last_name']);
-        return me;
-    }
+User.prototype.toJSON = function () {
+    let user = this.dataValues;
+    let me = _.pick(user, ['id','email', 'first_name', 'last_name']);
+    return me;
+}
+User.findByToken = function(token){
+   let decoded = null;
+   try{
+       decoded = jwt.verify(token,process.env.JWTSECRETKEY);
+   }catch(e){
+       connection.Promise.reject('invalid token');
+   }
+   return this.findAll({where:{
+       token:token,
+       id:decoded.user.id
+   }});
+}
+User.prototype.removeToken = function(){
+    let user = this;
+    user.token = '';
+}
 module.exports = User;
