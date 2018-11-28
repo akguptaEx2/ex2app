@@ -4,44 +4,13 @@ const path = require('path');
 const srcDir = path.join('..','..');
 const {connection} = require(path.join(srcDir,'db'));
 const {User} = require(path.join(srcDir,'user'));
-
+const seedTestData = require('./seed/user.seed');
 describe('test user routes',function(){
     var server;
     this.beforeEach(()=>{
         let serverPath = path.join(srcDir,'server');
-        server = require(serverPath);
-        connection.sync().then(()=>{
-            User.bulkCreate([{
-                username: 'testone',
-                first_name:'Testone',
-                last_name:'one',
-                email:'test@one.com',
-                password:'testone'
-            },
-            {
-                username: 'testtwo',
-                first_name:'Testtwo',
-                last_name:'two',
-                email:'test@two.com',
-                password:'testtwo'
-            },
-            {
-                username: 'testthree',
-                first_name:'Testthree',
-                last_name:'three',
-                email:'test@three.com',
-                password:'testthree'
-            },
-            {
-                username: 'testfour',
-                first_name:'Testfour',
-                last_name:'four',
-                email:'test@four.com',
-                password:'testfour'
-            }
-        ]).catch((err)=>{});
-        }).catch((e)=>{
-        });
+        server = require(serverPath);   
+        seedTestData();
     });
     this.afterEach(()=>{
         connection.sync().then(()=>{
@@ -109,5 +78,12 @@ describe('test user routes',function(){
 
         }).catch(err=>done(err));
         
+    });
+    it('should login user for valid username and password',(done)=>{
+        //create a user in test db 
+        request(server).post('/users/login').send({username:'testfour',password:'testfour'}).then((res)=>{
+            console.log(res.body);
+            done();
+        }).catch(err=>done(err));
     });
 });

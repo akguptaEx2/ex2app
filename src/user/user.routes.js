@@ -9,4 +9,6 @@ router.get('/:username',UserController.getUser);
 router.delete('/:username',UserController.deleteUser);
 //update user by username
 router.patch('/:username',UserController.updateUser);
+//login user
+router.post('/login',UserController.login);
 module.exports = router;

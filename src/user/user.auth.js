@@ -1,4 +1,6 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 class EncryptPassword{
     static hash(plain){
         return new Promise((resolve,reject)=>{
@@ -21,6 +23,16 @@ class EncryptPassword{
                 return resolve(success);
             });
         });
+    }
+    static async generateAuthToken(user){
+        return new Promise((resolve,reject)=>{
+            jwt.sign({user},process.env.JWTSECRETKEY,(err,token)=>{
+                if(err){
+                    return reject({success:false,error:{code:403,message:'Forbidden'}});
+                }
+                resolve(token);
+            });
+        }); 
     }
 
 }
