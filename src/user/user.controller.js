@@ -16,33 +16,58 @@ const EncryptPassword = require('./user.auth');
 const {connection,Sequelize} = require('../db');
 const Op = Sequelize.Op;
 class UserController{
+    constructor(){
+        this.serverError = 'Server Error';
+        this.unauthorizedError = 'Unauthorized';
+        this.forbiddenError = 'Forbidden';
+        this.notFoundError = 'No user found';
+        this.invalidCredError = 'Invalid credentials';
+    }
     static async getAllUsers(req,res){
         try{
+            await connection.sync();
             let users = await User.findAll();
             return res.json({success:true,data:users});
         }catch(err){
-            return res.status(500).json({success:false,message:err.errors[0].message});
+            console.log(err);
+            return res.status(500).json({success:false,message:this.serverError});
         }        
     }
     static async getUser(req,res){
 
-        let email = req.params['email'];
+        let pattern = req.params['pattern'];
         try{
+            await connection.sync();
             let users = await User.findAll({
                 where:{
-                    email:{
-                        [Op.like]: `%${email}%`
-                    }
+                    $or: [
+                       {
+                        email:{
+                            $like: [`%${pattern}%`]
+                        }
+                       },
+                       {
+                        first_name:{
+                            $like: [`%${pattern}%`]
+                        }
+                       },
+                       {
+                        last_name:{
+                            $like: [`%${pattern}%`]
+                        }
+                       }
+                    ]
                 }
             });
             let searchResult = [];
             users.forEach(function(user){
-                searchResult.push(user.toJSON())
+                searchResult.push(user.toJSON());
             });
             res.json({success:true,data:searchResult});
 
         }catch(e){
-            return res.status(500).json({success:false,message:e.errors[0].message});
+            console.log(e);
+            return res.status(500).json({success:false,message:this.serverError});
         }
        
     }
@@ -54,20 +79,19 @@ class UserController{
                let user = await User.create(userObj);
                return res.json({success:true,data:user.toJSON()});
             }catch(insertError){
-                return res.status(500).json({success:false,message:insertError.errors[0].message});
+                console.log(insertError);
+                return res.status(500).json({success:false,message:this.serverError});
             }
         }catch(err){
-            return res.status(500).json({success:false,message:err.errors[0].message});
+            console.log(err);
+            return res.status(500).json({success:false,message:this.serverError});
         }
     }
     static async deleteUser(req,res){
-        res.json({success:true,message:'Method not implemented'});
+        res.json({success:false,message:'Method not implemented'});
     }
     static async updateUser(req,res){
-        res.json({success:true,message:'Method not implemented'});
-    }
-    static async verifyToken(req,res,next){
-
+        res.json({success:false,message:'Method not implemented'});
     }
     static async login(req,res){
         let userCreds = _.pick(req.body,['email','password']);
@@ -81,11 +105,11 @@ class UserController{
                 });
                 let user = userArr[0];
                 if(!user){
-                    return res.status(404).json({success:false,message:'No user found'});
+                    return res.status(404).json({success:false,message:this.notFoundError});
                 }
                 let verifiedUser = await EncryptPassword.compare(userCreds.password,user.password);
                 if(!verifiedUser)
-                    return res.status(401).json({success:false, message:'Invalid credentials'});
+                    return res.status(401).json({success:false, message:this.invalidCredError});
                 //generate auth token
                 let token = await EncryptPassword.generateAuthToken(user);
                 user.token = token;
@@ -93,11 +117,11 @@ class UserController{
                 res.header('x-auth',user.token).status(200).json({success:true,data:user.toJSON(),auth_token:token});
             }catch(e){
                 console.log(e);
-                return res.status(403).json({success:false,message:e});
+                return res.status(403).json({success:false,message:this.forbiddenError});
             }  
         }catch(error){
             console.log(error);
-            return res.status(500).json({success:false,error:error});
+            return res.status(500).json({success:false,message:this.serverError});
         }
     }
 
@@ -109,31 +133,26 @@ class UserController{
             await req.user.save();
             res.json({success:true,message:'Logged out'});
         }catch(err){
-            res.status(500).json({success:false,message:err});
+            console.log(err);
+            res.status(500).json({success:false,message:this.serverError});
         }
     }
     static async authMiddleware(req,res,next){
         try{
             let token = req.headers['x-auth'];
             await connection.sync();
-            let user;
-            try{
-                user = await User.findByToken(token);
-            }catch(e){
-                console.log(e);
-                res.json({e});
-            }
+            user = await User.findByToken(token);
             if(!user.length){
-            return res.status(401).json({success:false,message:'Unauthorized'})
+            return res.status(401).json({success:false,message:this.unauthorizedError});
             }
             user = user[0];
             req.user = user;
             req.token = token;
             next();
         }catch(err){
-            res.status(401).json({success:false,message:'Unauthorized'})
+            res.status(401).json({success:false,message:this.unauthorizedError});
         } 
     }
 }
 
-module.exports = UserController
+module.exports = UserController;

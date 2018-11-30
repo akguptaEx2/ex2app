@@ -24,6 +24,18 @@ const User = connection.define('user', {
     token: {
         type: Sequelize.STRING(255),
         defaultValue:''
+    },
+    role:{
+        type: Sequelize.STRING,
+        defaultValue: 'user'
+    },
+    is_active:{
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
+    },
+    is_new:{
+        type:Sequelize.BOOLEAN,
+        defaultValue:false
     }
 });
 User.hook('beforeCreate', async function (user, options) {
@@ -36,7 +48,7 @@ User.hook('beforeCreate', async function (user, options) {
 });
 User.prototype.toJSON = function () {
     let user = this.dataValues;
-    let me = _.pick(user, ['id','email', 'first_name', 'last_name']);
+    let me = _.pick(user, ['id','email', 'first_name', 'last_name','role']);
     return me;
 }
 User.findByToken = function(token){

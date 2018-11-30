@@ -14,5 +14,5 @@ app.use(function(req, res, next) {
    res.header('api-version','1.0');
    next();
 });
-app.use('/users',userRoutes);
+app.use('/api/users',userRoutes);
 module.exports = {app,port,userRoutes,Sequelize,connection};
