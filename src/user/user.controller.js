@@ -34,7 +34,6 @@ class UserController{
         }        
     }
     static async getUser(req,res){
-
         let pattern = req.params['pattern'];
         try{
             await connection.sync();
