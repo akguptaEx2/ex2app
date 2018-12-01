@@ -1,0 +1,16 @@
+/**
+ * @author Arup Kumar Gupta
+ * @email akgupta@ex2india.com
+ * @create date 2018-12-01 11:49:52
+ * @modify date 2018-12-01 11:49:52
+ * @desc setting paths for migrations seeds models and config
+*/
+
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('config', 'config.json'),
+  'models-path': path.resolve('db', 'models'),
+  'seeders-path': path.resolve('db', 'seeders'),
+  'migrations-path': path.resolve('db', 'migrations')
+}

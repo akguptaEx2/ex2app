@@ -1,0 +1,9 @@
+{
+    "serverError":"Server Error",
+    "unauthorizedError":"Unauthorized",
+    "forbidden Error":"Forbidden",
+    "noUserFound":"No User found",
+    "alreadyTaken":"Already Taken",
+    "invalidCredError": "Invalid Credentials",
+    "invalidRole":"Invalid Role"
+}

@@ -2,7 +2,9 @@
   "name": "ex2app",
   "version": "1.0.0",
   "description": "Device Management, Interviews, Attendance",
-  "engines" : { "node" : ">=8.11" } ,
+  "engines": {
+    "node": ">=8.11"
+  },
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./src/server.js",
@@ -26,7 +28,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
-    "node-mailer": "^0.1.1",
+    "nodemailer": "^4.7.0",
     "sequelize": "^4.41.2"
   },
   "devDependencies": {

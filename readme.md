@@ -49,7 +49,16 @@ run the following command <br>
 
 git update-index --assume-unchanged src/config/config.json
 ```
-
+##Setup Database
+Setup database as per config.json <br>
+The config.json can be modified as per need. It won't be committed though
+sync the database. You can do it by starting the server once.
+You need to have sequelize-cli installed globally to run the above command
+```
+npm i -g sequelize-cli
+cd src/
+sequelize db:migrate
+```
 
 ## Authors
 
