@@ -63,6 +63,9 @@ sequelize db:migrate
 ```
 npm run superadmin
 ```
+
+## API Documentation
+https://documenter.getpostman.com/view/6021293/RzfdopYg
 ## Authors
 
 * **Arup Kumar Gupta** - *Initial work* - [EX2APP](https://github.com/akguptaex2/ex2app)
