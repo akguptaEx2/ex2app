@@ -12,15 +12,11 @@ const messages = require('../MessageDictionary.json');
 class Auth{
     static hash(plain){
         return new Promise((resolve,reject)=>{
-            bcrypt.genSalt(10,(err,salt)=>{
-                if(err)
-                    return reject(err);
-                bcrypt.hash(plain,salt,(er,hash)=>{
-                    if(er)
-                        return reject(er);
-                    return resolve(hash);
-                });
-            })
+            bcrypt.hash(plain,10,(er,hash)=>{
+                if(er)
+                    return reject(er);
+                return resolve(hash);
+            });
         });
     }
     static compare(plain,hash){

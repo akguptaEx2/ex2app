@@ -8,7 +8,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./src/server.js",
-    "test": "export NODE_ENV=test||SET NODE_ENV=test&&find ./src/tests -name '*.test.js' | xargs mocha -R spec"
+    "test": "export NODE_ENV=test||SET NODE_ENV=test&&find ./src/tests -name '*.test.js' | xargs mocha -R spec",
+    "superadmin": "node ./src/superadmin"
   },
   "keywords": [
     "ex2",

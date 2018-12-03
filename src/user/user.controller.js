@@ -145,6 +145,46 @@ class UserController{
             res.status(500).json({success:false,message:messages.serverError});
         }
     }
+    static async updateProfile(req,res){
+        const updateUser = _.pick(req.body,['current_password','password','mobile_number']);
+        try{
+            let user = req.user;
+            
+
+            let verifiedUser = await Auth.compare(updateUser.current_password,user.password);
+            if(!verifiedUser){
+                return res.status(401).json({success:false,message:messages.invalidCredError});
+            }
+            user.password = updateUser.password;
+            await user.save();
+            let token = await Auth.generateAuthToken(user);
+            user.token = token;
+            let updatedUser = await user.save();
+            return res.json({success:true,data:updatedUser});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({success:false,message:messages.serverError});
+        }
+        res.json(req.user);
+    }
+    static async viewProfile(req,res){
+        let userId = req.user.id;
+        try{
+            let userRole = await UserRole.findOne({
+                options: {
+                    user_id:userId                
+                }
+            });
+            let roleId = userRole.role_id;
+            let role = await Role.findById(roleId);
+            let user = req.user.toJSON();
+            user.role = role.role_value;
+            return res.json({success:true,data:user});
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({success:false,message:messages.serverError});
+        }
+    }
 }
 
 module.exports = UserController;

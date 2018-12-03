@@ -24,4 +24,8 @@ router.patch('/:id',UserController.updateUser);
 router.post('/login',UserController.login);
 //logout user
 router.delete('/me/logout',Auth.authMiddleware,UserController.logout);
+//update profile
+router.patch('/me/profile',Auth.authMiddleware,UserController.updateProfile);
+//view profile
+router.get('/me/profile',Auth.authMiddleware,UserController.viewProfile)
 module.exports = router;
